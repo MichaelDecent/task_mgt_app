@@ -18,7 +18,7 @@ tasks with specific users.
 
 ```sh
 git clone https://github.com/your-username/task-management-application.git
-cd task-management-application
+cd task_mgt_app
 
 ```
 
