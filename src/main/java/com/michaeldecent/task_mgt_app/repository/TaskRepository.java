@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
-    List<Task> findAllByCompletionStatus(Boolean completionStatus);
+    List<Task> findAllByCompletionStatusAndUserId(Boolean completionStatus, Integer UserId);
 
-    List<Task> findAllByDueDate(LocalDate dueDate);
+    List<Task> findAllByDueDateAndUserId(LocalDate dueDate, Integer UserId);
 
     List<Task> findAllByUser(User existingUser);
 }

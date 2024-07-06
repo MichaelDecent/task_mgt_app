@@ -17,16 +17,12 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public List<Task> retrieveAllTasks() {
-        return taskRepository.findAll();
+    public List<Task> retrieveTasksByCompletionStatus(Boolean completionStatus, Integer userId) {
+        return taskRepository.findAllByCompletionStatusAndUserId(completionStatus, userId);
     }
 
-    public List<Task> retrieveTasksByCompletionStatus(Boolean completionStatus) {
-        return taskRepository.findAllByCompletionStatus(completionStatus);
-    }
-
-    public List<Task> retrieveTasksByDueDate(LocalDate dueDate) {
-        return taskRepository.findAllByDueDate(dueDate);
+    public List<Task> retrieveTasksByDueDate(LocalDate dueDate, Integer userId) {
+        return taskRepository.findAllByDueDateAndUserId(dueDate, userId);
     }
 
     public Task updateTask(Integer taskId, TaskRequest taskData) {
