@@ -24,13 +24,7 @@ cd task_mgt_app
 
 ### Configuration
 
-1. Create a database for the application:
-
-```
-createdb task_mgt_db
-```
-
-2. Update `src/main/resources/application.properties1` with your database and JWT configurations:
+1. Update `src/main/resources/application.properties1` with your database and JWT configurations:
 
 ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/task_management_db
@@ -136,8 +130,8 @@ Request Body:
 
 ```
 {
-"username": "updatedUser",
-"email": "updated@example.com"
+    "username": "updatedUser",
+    "email": "updated@example.com"
 }
 ```
 
@@ -167,13 +161,11 @@ json
       "message": "User deleted successfully"
     }
 
-Task Endpoints
+### Task Endpoints
 
-    Create Task
+**Create Task**
 
-    http
-
-`POST /tasks`
+`POST /users/user_id/tasks`
 
 Headers:
 
@@ -203,9 +195,9 @@ Response:
 }
 ````
 
-* **Get Task by ID**
+* **Get All Tasks of a user**
 
-`GET /tasks/{id}`
+`GET /users/{user_id}/tasks`
 
 Headers:
 
@@ -213,21 +205,21 @@ Headers:
 
 Response:
 
-json
-
 ````
-{
-    "id": 1,
-    "title": "Task Title",
-    "description": "Task Description",
-    "dueDate": "2024-07-10",
-    "completionStatus": false,
-    "createdAt": "2024-07-01T12:00:00",
-    "updatedAt": "2024-07-01T12:00:00"
-}
+[
+    {
+        "id": 1,
+        "title": "Task Title",
+        "description": "Task Description",
+        "dueDate": "2024-07-10",
+        "completionStatus": false,
+        "createdAt": "2024-07-01T12:00:00",
+        "updatedAt": "2024-07-01T12:00:00"
+    }
+]
 ````
 
-Update Task
+**Update Task**
 
 `PUT /tasks/{id}`
 
@@ -278,7 +270,7 @@ Response:
 
 * **Get Tasks with Filtering and Sorting**
 
-`GET /tasks`
+`GET users/{user_id}/tasks`
 
 Headers:
 
@@ -288,11 +280,10 @@ Query Parameters:
 
     completionStatus: (optional) Filter by completion status (true or false)
     dueDate: (optional) Filter by due date (e.g., 2024-07-10)
-    sort: (optional) Sort by field (e.g., dueDate,desc)
 
 Example Request:
 
-`GET /tasks?completionStatus=false&dueDate=2024-07-10&sort=dueDate,asc`
+`GET users/{user_id}/tasks?completionStatus=false&dueDate=2024-07-10`
 
 Response:
 
