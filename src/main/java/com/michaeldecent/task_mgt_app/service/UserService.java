@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +58,10 @@ public class UserService {
         } else {
             throw new RuntimeException("User not found");
         }
+    }
+
+    public List<Task> getTasksByUserIdAndOptionalFilters(Integer userId, Boolean completionStatus, LocalDate dueDate) {
+        return taskRepository.findTasksByUserIdAndOptionalFilters(userId, completionStatus, dueDate);
     }
 
     public User updateUser(Integer userId, RegisterRequest userData) {

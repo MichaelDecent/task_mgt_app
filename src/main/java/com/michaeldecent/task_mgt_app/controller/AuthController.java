@@ -1,6 +1,7 @@
 package com.michaeldecent.task_mgt_app.controller;
 
 import com.michaeldecent.task_mgt_app.reponse.AuthenticationResponse;
+import com.michaeldecent.task_mgt_app.reponse.UserResponse;
 import com.michaeldecent.task_mgt_app.request.AuthenticationRequest;
 import com.michaeldecent.task_mgt_app.request.RegisterRequest;
 import com.michaeldecent.task_mgt_app.service.AuthService;
@@ -21,11 +22,11 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("register")
-    public ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequest request) {
+    public ResponseEntity<UserResponse> registerUser(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.createUser(request));
     }
 
-    @PostMapping("authenticate")
+    @PostMapping("login")
     public ResponseEntity<AuthenticationResponse> loginUser(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authService.authenticateUser(request));
     }

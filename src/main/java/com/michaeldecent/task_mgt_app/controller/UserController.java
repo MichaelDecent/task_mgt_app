@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,14 @@ public class UserController {
     @GetMapping("{userId}/tasks")
     public ResponseEntity<List<Task>> retrieveTasksByUser(@PathVariable Integer userId) {
         return ResponseEntity.ok(userService.retrieveTaskByUser(userId));
+    }
+
+    @GetMapping("{userId}")
+    public ResponseEntity<List<Task>> getTasksByUserIdAndOptionalFilters(
+            @PathVariable Integer userId,
+            @RequestParam(required = false) Boolean completionStatus,
+            @RequestParam(required = false) LocalDate dueDate) {
+        return ResponseEntity.ok(userService.getTasksByUserIdAndOptionalFilters(userId, completionStatus, dueDate));
     }
 
     @PutMapping("{userId}")

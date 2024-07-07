@@ -6,9 +6,7 @@ import com.michaeldecent.task_mgt_app.request.TaskRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,14 +14,6 @@ import java.util.Optional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-
-    public List<Task> retrieveTasksByCompletionStatus(Boolean completionStatus, Integer userId) {
-        return taskRepository.findAllByCompletionStatusAndUserId(completionStatus, userId);
-    }
-
-    public List<Task> retrieveTasksByDueDate(LocalDate dueDate, Integer userId) {
-        return taskRepository.findAllByDueDateAndUserId(dueDate, userId);
-    }
 
     public Task updateTask(Integer taskId, TaskRequest taskData) {
         Optional<Task> optionalTask = taskRepository.findById(taskId);

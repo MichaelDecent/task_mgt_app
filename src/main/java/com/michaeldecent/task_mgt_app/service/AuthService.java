@@ -3,6 +3,7 @@ package com.michaeldecent.task_mgt_app.service;
 import com.michaeldecent.task_mgt_app.model.Role;
 import com.michaeldecent.task_mgt_app.model.User;
 import com.michaeldecent.task_mgt_app.reponse.AuthenticationResponse;
+import com.michaeldecent.task_mgt_app.reponse.UserResponse;
 import com.michaeldecent.task_mgt_app.repository.UserRepository;
 import com.michaeldecent.task_mgt_app.request.AuthenticationRequest;
 import com.michaeldecent.task_mgt_app.request.RegisterRequest;
@@ -24,8 +25,7 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-
-    public AuthenticationResponse createUser(RegisterRequest request) {
+    public UserResponse createUser(RegisterRequest request) {
         var user = User.builder()
                 .firstname(request.getFirstName())
                 .lastname(request.getLastName())
@@ -35,9 +35,12 @@ public class AuthService {
                 .build();
 
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .accessToken(jwtToken)
+
+        return UserResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
                 .build();
     }
 
