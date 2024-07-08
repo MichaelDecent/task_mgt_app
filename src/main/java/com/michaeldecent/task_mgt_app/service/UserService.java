@@ -2,12 +2,12 @@ package com.michaeldecent.task_mgt_app.service;
 
 import com.michaeldecent.task_mgt_app.dto.TaskRequestDTO;
 import com.michaeldecent.task_mgt_app.dto.TaskResponseDTO;
-import com.michaeldecent.task_mgt_app.dto.UserDTO;
+import com.michaeldecent.task_mgt_app.dto.UserRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.UserResponseDTO;
 import com.michaeldecent.task_mgt_app.model.Task;
 import com.michaeldecent.task_mgt_app.model.User;
 import com.michaeldecent.task_mgt_app.repository.TaskRepository;
 import com.michaeldecent.task_mgt_app.repository.UserRepository;
-import com.michaeldecent.task_mgt_app.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public List<UserDTO> retrieveAllUsers() {
+    public List<UserResponseDTO> retrieveAllUsers() {
         return userRepository.findAll()
                 .stream()
                 .map(this::convertUserToDto)
@@ -75,14 +75,14 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserDTO updateUser(Integer userId, RegisterRequest userData) {
+    public UserResponseDTO updateUser(Integer userId, UserRequestDTO userData) {
         Optional<User> optionalUser = userRepository.findById(userId);
 
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
             existingUser.setEmail(userData.getEmail());
-            existingUser.setFirstName(userData.getFirstName());
-            existingUser.setLastName(userData.getLastName());
+            existingUser.setFirstName(userData.getFirst_name());
+            existingUser.setLastName(userData.getLast_name());
             existingUser.setPassword(passwordEncoder.encode(userData.getPassword()));
             userRepository.save(existingUser);
             return convertUserToDto(existingUser);
@@ -100,8 +100,8 @@ public class UserService {
         }
     }
 
-    public UserDTO convertUserToDto(User user) {
-        return UserDTO.builder()
+    public UserResponseDTO convertUserToDto(User user) {
+        return UserResponseDTO.builder()
                 .user_id(user.getId())
                 .first_name(user.getFirstName())
                 .last_name(user.getLastName())

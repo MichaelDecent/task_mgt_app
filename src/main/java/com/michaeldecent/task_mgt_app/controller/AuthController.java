@@ -2,8 +2,8 @@ package com.michaeldecent.task_mgt_app.controller;
 
 import com.michaeldecent.task_mgt_app.dto.AuthRequestDTO;
 import com.michaeldecent.task_mgt_app.dto.AuthResponseDTO;
-import com.michaeldecent.task_mgt_app.dto.UserDTO;
-import com.michaeldecent.task_mgt_app.request.RegisterRequest;
+import com.michaeldecent.task_mgt_app.dto.UserRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.UserResponseDTO;
 import com.michaeldecent.task_mgt_app.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody RegisterRequest request) {
+    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRequestDTO request) {
         return ResponseEntity.ok(authService.createUser(request));
     }
 

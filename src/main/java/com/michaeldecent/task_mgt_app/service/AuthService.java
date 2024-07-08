@@ -2,11 +2,11 @@ package com.michaeldecent.task_mgt_app.service;
 
 import com.michaeldecent.task_mgt_app.dto.AuthRequestDTO;
 import com.michaeldecent.task_mgt_app.dto.AuthResponseDTO;
-import com.michaeldecent.task_mgt_app.dto.UserDTO;
+import com.michaeldecent.task_mgt_app.dto.UserRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.UserResponseDTO;
 import com.michaeldecent.task_mgt_app.model.Role;
 import com.michaeldecent.task_mgt_app.model.User;
 import com.michaeldecent.task_mgt_app.repository.UserRepository;
-import com.michaeldecent.task_mgt_app.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,10 +27,10 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-    public UserDTO createUser(RegisterRequest request) {
+    public UserResponseDTO createUser(UserRequestDTO request) {
         var user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
+                .firstName(request.getFirst_name())
+                .lastName(request.getLast_name())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)

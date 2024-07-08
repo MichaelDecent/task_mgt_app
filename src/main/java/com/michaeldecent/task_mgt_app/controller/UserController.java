@@ -2,8 +2,8 @@ package com.michaeldecent.task_mgt_app.controller;
 
 import com.michaeldecent.task_mgt_app.dto.TaskRequestDTO;
 import com.michaeldecent.task_mgt_app.dto.TaskResponseDTO;
-import com.michaeldecent.task_mgt_app.dto.UserDTO;
-import com.michaeldecent.task_mgt_app.request.RegisterRequest;
+import com.michaeldecent.task_mgt_app.dto.UserRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.UserResponseDTO;
 import com.michaeldecent.task_mgt_app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> retrieveAllUsers() {
+    public ResponseEntity<List<UserResponseDTO>> retrieveAllUsers() {
         return ResponseEntity.ok((userService.retrieveAllUsers()));
     }
 
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping("{userId}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer userId, @RequestBody RegisterRequest userData) {
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Integer userId, @RequestBody UserRequestDTO userData) {
         return ResponseEntity.ok(userService.updateUser(userId, userData));
     }
 
