@@ -1,8 +1,8 @@
 package com.michaeldecent.task_mgt_app.controller;
 
-import com.michaeldecent.task_mgt_app.reponse.AuthenticationResponse;
-import com.michaeldecent.task_mgt_app.reponse.UserResponse;
-import com.michaeldecent.task_mgt_app.request.AuthenticationRequest;
+import com.michaeldecent.task_mgt_app.dto.AuthRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.AuthResponseDTO;
+import com.michaeldecent.task_mgt_app.dto.UserDTO;
 import com.michaeldecent.task_mgt_app.request.RegisterRequest;
 import com.michaeldecent.task_mgt_app.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("register")
-    public ResponseEntity<UserResponse> registerUser(@RequestBody RegisterRequest request) {
+    public ResponseEntity<UserDTO> registerUser(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.createUser(request));
     }
 
     @PostMapping("login")
-    public ResponseEntity<AuthenticationResponse> loginUser(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<AuthResponseDTO> loginUser(@RequestBody AuthRequestDTO request) {
         return ResponseEntity.ok(authService.authenticateUser(request));
     }
 }

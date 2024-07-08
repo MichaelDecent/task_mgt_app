@@ -20,10 +20,19 @@ public class Task {
     private Integer id;
 
     private String title;
+
     private String description;
+
+    @Column(name = "due_date")
     private LocalDate dueDate;
+
+    @Column(name = "completion_status")
     private Boolean completionStatus = false;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)

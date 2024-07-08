@@ -1,11 +1,11 @@
 package com.michaeldecent.task_mgt_app.service;
 
+import com.michaeldecent.task_mgt_app.dto.AuthRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.AuthResponseDTO;
+import com.michaeldecent.task_mgt_app.dto.UserDTO;
 import com.michaeldecent.task_mgt_app.model.Role;
 import com.michaeldecent.task_mgt_app.model.User;
-import com.michaeldecent.task_mgt_app.reponse.AuthenticationResponse;
-import com.michaeldecent.task_mgt_app.reponse.UserResponse;
 import com.michaeldecent.task_mgt_app.repository.UserRepository;
-import com.michaeldecent.task_mgt_app.request.AuthenticationRequest;
 import com.michaeldecent.task_mgt_app.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,14 +21,16 @@ public class AuthService {
 
     private final JwtService jwtService;
 
+    private final UserService userService;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
-    public UserResponse createUser(RegisterRequest request) {
+    public UserDTO createUser(RegisterRequest request) {
         var user = User.builder()
-                .firstname(request.getFirstName())
-                .lastname(request.getLastName())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
@@ -36,16 +38,11 @@ public class AuthService {
 
         userRepository.save(user);
 
-        return UserResponse.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .firstname(user.getFirstname())
-                .lastname(user.getLastname())
-                .build();
+        return userService.convertUserToDto(user);
     }
 
 
-    public AuthenticationResponse authenticateUser(AuthenticationRequest request) {
+    public AuthResponseDTO authenticateUser(AuthRequestDTO request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -56,8 +53,10 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder()
-                .accessToken(jwtToken)
+        return AuthResponseDTO.builder()
+                .access_token(jwtToken)
                 .build();
     }
+
 }
+

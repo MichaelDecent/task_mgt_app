@@ -1,9 +1,11 @@
 package com.michaeldecent.task_mgt_app.service;
 
+import com.michaeldecent.task_mgt_app.dto.TaskRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.TaskResponseDTO;
 import com.michaeldecent.task_mgt_app.model.Task;
 import com.michaeldecent.task_mgt_app.repository.TaskRepository;
-import com.michaeldecent.task_mgt_app.request.TaskRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,7 +17,10 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public Task updateTask(Integer taskId, TaskRequest taskData) {
+    @Autowired
+    private UserService userService;
+
+    public TaskResponseDTO updateTask(Integer taskId, TaskRequestDTO taskData) {
         Optional<Task> optionalTask = taskRepository.findById(taskId);
 
         if (optionalTask.isPresent()) {
@@ -23,8 +28,9 @@ public class TaskService {
             existingTask.setDescription(taskData.getDescription());
             existingTask.setTitle(taskData.getTitle());
             existingTask.setUpdatedAt(LocalDateTime.now());
-            existingTask.setDueDate(taskData.getDueDate());
-            return taskRepository.save(existingTask);
+            existingTask.setDueDate(taskData.getDue_date());
+            taskRepository.save(existingTask);
+            return userService.convertTaskToDto(existingTask);
         } else {
             throw new RuntimeException("Task not found");
         }
@@ -38,4 +44,5 @@ public class TaskService {
             throw new RuntimeException("Task not found");
         }
     }
+
 }

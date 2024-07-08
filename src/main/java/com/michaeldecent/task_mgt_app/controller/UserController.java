@@ -1,9 +1,9 @@
 package com.michaeldecent.task_mgt_app.controller;
 
-import com.michaeldecent.task_mgt_app.model.Task;
-import com.michaeldecent.task_mgt_app.model.User;
+import com.michaeldecent.task_mgt_app.dto.TaskRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.TaskResponseDTO;
+import com.michaeldecent.task_mgt_app.dto.UserDTO;
 import com.michaeldecent.task_mgt_app.request.RegisterRequest;
-import com.michaeldecent.task_mgt_app.request.TaskRequest;
 import com.michaeldecent.task_mgt_app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +20,22 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> retrieveAllUsers() {
+    public ResponseEntity<List<UserDTO>> retrieveAllUsers() {
         return ResponseEntity.ok((userService.retrieveAllUsers()));
     }
 
     @PostMapping("{userId}/tasks")
-    public ResponseEntity<Task> createTask(@PathVariable Integer userId, @RequestBody TaskRequest newTaskData) {
+    public ResponseEntity<TaskResponseDTO> createTask(@PathVariable Integer userId, @RequestBody TaskRequestDTO newTaskData) {
         return ResponseEntity.ok(userService.createTask(userId, newTaskData));
     }
 
     @GetMapping("{userId}/tasks")
-    public ResponseEntity<List<Task>> retrieveTasksByUser(@PathVariable Integer userId) {
+    public ResponseEntity<List<TaskResponseDTO>> retrieveTasksByUser(@PathVariable Integer userId) {
         return ResponseEntity.ok(userService.retrieveTaskByUser(userId));
     }
 
     @GetMapping("{userId}")
-    public ResponseEntity<List<Task>> getTasksByUserIdAndOptionalFilters(
+    public ResponseEntity<List<TaskResponseDTO>> getTasksByUserIdAndOptionalFilters(
             @PathVariable Integer userId,
             @RequestParam(required = false) Boolean completionStatus,
             @RequestParam(required = false) LocalDate dueDate) {
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping("{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable Integer userId, @RequestBody RegisterRequest userData) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer userId, @RequestBody RegisterRequest userData) {
         return ResponseEntity.ok(userService.updateUser(userId, userData));
     }
 

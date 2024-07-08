@@ -113,7 +113,8 @@ Response:
 ```
 {
     "id": 1,
-    "username": "exampleUser",
+    "firstName": "exampleUser",
+    "lastName": "exampleUser",
     "email": "user@example.com"
 }
 ```
@@ -130,7 +131,9 @@ Request Body:
 
 ```
 {
-    "username": "updatedUser",
+    "id": 1,
+    "firstName": "exampleUser",
+    "lastName": "exampleUser",
     "email": "updated@example.com"
 }
 ```
@@ -140,7 +143,8 @@ Response:
 ```
 {
     "id": 1,
-    "username": "updatedUser",
+    "firstName": "exampleUser",
+    "lastName": "exampleUser",
     "email": "updated@example.com"
 }
 ```

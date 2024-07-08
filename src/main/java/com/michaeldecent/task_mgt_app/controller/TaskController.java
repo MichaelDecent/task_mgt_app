@@ -1,7 +1,7 @@
 package com.michaeldecent.task_mgt_app.controller;
 
-import com.michaeldecent.task_mgt_app.model.Task;
-import com.michaeldecent.task_mgt_app.request.TaskRequest;
+import com.michaeldecent.task_mgt_app.dto.TaskRequestDTO;
+import com.michaeldecent.task_mgt_app.dto.TaskResponseDTO;
 import com.michaeldecent.task_mgt_app.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @PutMapping("{taskId}")
-    public ResponseEntity<Task> updateTask(@PathVariable Integer taskId, @RequestBody TaskRequest taskData) {
+    public ResponseEntity<TaskResponseDTO> updateTask(@PathVariable Integer taskId, @RequestBody TaskRequestDTO taskData) {
         return ResponseEntity.ok(taskService.updateTask(taskId, taskData));
     }
 
