@@ -47,6 +47,9 @@ The application will start on `http://localhost:8080`.
 
 ## API Documentation
 
+* **Swagger Docs**
+    * You can access the api swagger documentation here `http://localhost:8080/swagger-ui/index.html`
+
 ### User Endpoints
 
 * **Register User**

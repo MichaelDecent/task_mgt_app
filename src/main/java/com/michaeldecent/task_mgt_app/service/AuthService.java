@@ -28,7 +28,6 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public UserResponseDTO createUser(UserRequestDTO request) {
-        System.out.println(request);
         var user = User.builder()
                 .firstName(request.getFirst_name())
                 .lastName(request.getLast_name())
@@ -44,7 +43,6 @@ public class AuthService {
 
 
     public AuthResponseDTO authenticateUser(AuthRequestDTO request) {
-        System.out.println(request.getEmail() + " and " + request.getPassword());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),

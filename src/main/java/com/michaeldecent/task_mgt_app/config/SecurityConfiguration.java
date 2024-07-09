@@ -19,6 +19,14 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
+    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+    };
+
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
@@ -28,7 +36,7 @@ public class SecurityConfiguration {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login")
+                        req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
